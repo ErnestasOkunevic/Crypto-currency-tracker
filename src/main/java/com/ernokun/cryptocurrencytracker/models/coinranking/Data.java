@@ -1,7 +1,10 @@
 package com.ernokun.cryptocurrencytracker.models.coinranking;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Arrays;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
 
     private Coin[] coins;

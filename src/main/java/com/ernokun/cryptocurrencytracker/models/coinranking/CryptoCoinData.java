@@ -1,5 +1,8 @@
 package com.ernokun.cryptocurrencytracker.models.coinranking;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CryptoCoinData {
 
     private Data data;
