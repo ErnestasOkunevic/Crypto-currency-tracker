@@ -7,45 +7,58 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="jumbotron">
-                    <h1 class="display-4">Cryptocurrency Tracker</h1>
-                    <p class="lead">The current price of the TOP <b><span th:text="${coinAmount}"></span></b> crypto currencies.</p>
-                    <p>Prices of date: <b><span th:text="${currentDate}"></span></b></p>
-                    <hr class="my-4">
-                    <p>All cryptocurrency information is provided from <a href="https://coinranking.com/" target="_blank">coinranking</a>.</p>
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron">
+                <h1 class="display-4">Cryptocurrency Tracker</h1>
+                <p class="lead">The current price of the TOP <b><span th:text="${coinAmount}"></span></b> crypto currencies.</p>
+                <p>Prices of date: <b><span th:text="${currentDate}"></span></b></p>
+                <hr class="my-4">
+                <p>All cryptocurrency information is provided from <a href="https://coinranking.com/" target="_blank">coinranking</a>.</p>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Rank</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price (EUR)</th>
-                            <th scope="col">Change since last minute (EUR)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="coin : ${coins}">
-                            <td><b><span th:text="${coin.rank}"></span>.</b></td>
-                            <td th:text="${coin.name}"></td>
-                            <td th:text="${coin.price}"></td>
-                            <td th:style="|${coin.change < 0 ? 'color: red;' : 'color: green;'}|">
-                                <span th:if="${coin.change >= 0}">+</span>
-                                <span th:text="${coin.change}"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price (EUR)</th>
+                    <th scope="col">Changes since the last minute (EUR)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="coin : ${coins}">
+                    <td><b><span th:text="${coin.rank}"></span>.</b></td>
+                    <td th:text="${coin.name}"></td>
+                    <td>
+                        <span th:text="${coin.price}"></span>
+                        <span>EUR</span>
+                    </td>
+                    <td th:style="|${coin.change < 0 ? 'color: red;' : 'color: green;'}|">
+                        <span th:if="${coin.change >= 0}">+</span>
+                        <span th:text="${coin.change}"></span>
+                        <span>EUR</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>'
+            <hr class="my-1">
+            <!--             The navigation bar for the table.                   -->
+            <ul class="nav nav-pills">
+                <li class="nav-item" th:each="i : ${#numbers.sequence(0, pageCount-1)}">
+                    <a th:href="@{/(page=${i})}" th:text="${i+1}" class="nav-link"
+                       th:classappend="${currentPage} == ${i}? 'active' : ''"></a>
+                </li>
+            </ul>
+            <!--             The navigation bar for the table.                   -->
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
